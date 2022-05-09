@@ -16,6 +16,7 @@ As a user, i want to...
 ## Requirements:
 
 * The calendar should be created from scratch using new Date() as the date object
+* Should be written in TypeScript
 * Use useState for state mangement
 * The UI should be as similar to the one in the Xd app as possible
 
