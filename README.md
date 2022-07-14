@@ -1,4 +1,4 @@
-# Kvalifik internship task
+# Kvalifik code challenge
 
 Link to Xd: https://xd.adobe.com/view/c4968c60-0c97-4695-b9af-389554584f9f-91c5/
 
