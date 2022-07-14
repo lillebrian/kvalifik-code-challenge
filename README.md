@@ -1,6 +1,6 @@
 # Kvalifik internship task
 
-Link to Xd: https://xd.adobe.com/view/5094507f-8524-4d3f-9968-d9ee7ec33efe-05c7/
+Link to Xd: https://xd.adobe.com/view/c4968c60-0c97-4695-b9af-389554584f9f-91c5/
 
 ## User story
 
