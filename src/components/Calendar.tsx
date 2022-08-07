@@ -48,9 +48,7 @@ const renderDates = (datesToRender: dates) => {
   console.log("tester renderdates: \n" + m)
   console.log("printer fundet måned: " + allMonths[m])
   
-  for (let index = 0; index < array.length; index++) {
-    const element = array[index];
-  }
+  
   return("month")
 }
 
@@ -63,14 +61,13 @@ const Calendar: FC<Props> = () => {
   
   
   useEffect(() => {
-    // setCurrentDay(new Date())
-    // setMonthStartDay(startOfMonth(new Date()))
-    // setMonthEndDay(endOfMonth(new Date()))
     const monthToRender: dates = {
       startOfMonth: monthStartDay,
       endOfMonth: monthEndDay,
       currentDay: currentDay
     }
+    
+    
     renderDates(monthToRender)
     console.log(currentDay)
     console.log(monthStartDay)
@@ -92,13 +89,15 @@ const Calendar: FC<Props> = () => {
       // justifyContent='center'
       alignItems='center'
     >
+      
       <Box textAlign='center' fontSize='2xl'  h='10%' w='100%' bg='teal.400' color='white'>
         Calendar
       </Box>
+      
       <Box h='90%' w='100%' bg='teal.100' color='white' overflow='hidden'>
         <SimpleGrid columns={7}>
           {Testdata.map(({date}, i) => {
-            return (<Box w='100%' h='100%' bg='white' border='1px' borderColor='black' textColor='black' key={i}> {format(date,"dd/mm/yyyy")}
+            return (<Box w='100%' h='100%' bg='white' border='1px' borderColor='black' textColor='black' key={i}> {format(date,"dd/mm")}
               </Box>);})}
 
         </SimpleGrid>
