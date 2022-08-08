@@ -9,6 +9,7 @@ import {
   startOfMonth,
   getDaysInMonth,
   getDay,
+  addMonths,
 } from "date-fns";
 import { count } from "console";
 import { getValue } from "@testing-library/user-event/dist/utils";
@@ -17,31 +18,46 @@ type Props = {
   param?: string;
 };
 
-interface dates {
+interface datesData {
   monthStart: Date;
   monthEnd: Date;
-  currentDay: Date;
+  // currentDay: Date;
   daysInMonth: number;
 }
+
+const renderMonth = (e: datesData) => {
+  return null;
+};
 
 const Calendar: FC<Props> = () => {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
-  const [monthToRender, setMonthToRender] = useState<dates>({
-    currentDay: currentDay,
+  const [monthToRender, setMonthToRender] = useState<datesData>({
     monthStart: startOfMonth(currentDay),
     monthEnd: endOfMonth(currentDay),
-    daysInMonth: getDaysInMonth(currentDay)
+    daysInMonth: getDaysInMonth(currentDay),
   });
-  
-  const {monthStart, monthEnd, daysInMonth} = monthToRender
 
-  
-  
-  function changeMonth() {
-    return undefined
+  const { monthStart, monthEnd, daysInMonth } = monthToRender;
+
+  // BE ABLE TO CHANGE MONTH AND MAKE IT SO
+  // THE FIRST DAY OF MONTH STARTS ON THE CORRECT DAY
+  function changeMonth(direction: string, e: React.MouseEvent) {
+    e.stopPropagation();
+    console.log(direction);
+    let d: number = direction.includes("forward") ? 1 : -1;
+    console.log(d);
+    console.table(monthToRender);
+
+    setMonthToRender((m) => ({
+      monthStart: addMonths(m.monthStart, d),
+      monthEnd: addMonths(m.monthEnd, d),
+      daysInMonth: getDaysInMonth(monthStart),
+    }));
+
+    console.table(monthToRender);
+    return;
   }
-  
 
   return (
     <Box
@@ -60,7 +76,6 @@ const Calendar: FC<Props> = () => {
         textAlign="center"
         fontSize="2xl"
         w="100%"
-  
         bg="teal.500"
         color="white"
         display="flex"
@@ -70,6 +85,7 @@ const Calendar: FC<Props> = () => {
           aria-label={"Next Month"}
           colorScheme="teal"
           icon={<ArrowBackIcon />}
+          onClick={(e) => changeMonth("back", e)}
         />
 
         <Box>Calendar</Box>
@@ -78,7 +94,7 @@ const Calendar: FC<Props> = () => {
           aria-label={"Next Month"}
           colorScheme="teal"
           icon={<ArrowForwardIcon />}
-          onClick={changeMonth()}
+          onClick={(e) => changeMonth("forward", e)}
         />
       </Box>
 
