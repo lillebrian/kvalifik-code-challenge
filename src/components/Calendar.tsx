@@ -88,12 +88,13 @@ const Calendar: FC<Props> = () => {
         <Grid templateColumns="repeat(7,1fr)" gap="0.5" h="100%" padding="0.5">
           {[...Array(getDaysInMonth(currentDay))].map((x, i) => (
             <GridItem
-              bg="white"
+              bg={(i+1 === currentDay.getDate()) ? 'telegram.50' : 'white'}
               borderRadius="md"
               border="1px"
               borderColor="teal.400"
               textColor="black"
               textAlign="center"
+              
               key={i + 1}
               _hover={{ bg: "gray.50" }}
               onClick={() => alert("Pressed")}
