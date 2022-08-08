@@ -21,21 +21,20 @@ interface dates {
   monthStart: Date;
   monthEnd: Date;
   currentDay: Date;
+  daysInMonth: number;
 }
 
 const Calendar: FC<Props> = () => {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
-  const [monthStartDay, setMonthStartDay] = useState<Date>(
-    startOfMonth(currentDay)
-  );
-  const [monthEndDay, setMonthEndDay] = useState<Date>(endOfMonth(currentDay));
   const [monthToRender, setMonthToRender] = useState<dates>({
     currentDay: currentDay,
-    monthStart: monthStartDay,
-    monthEnd: monthEndDay,
+    monthStart: startOfMonth(currentDay),
+    monthEnd: endOfMonth(currentDay),
+    daysInMonth: getDaysInMonth(currentDay)
   });
-  const start: number = getDay(monthStartDay);
+  
+  const {monthStart, monthEnd, daysInMonth} = monthToRender
 
   
   
@@ -43,12 +42,6 @@ const Calendar: FC<Props> = () => {
     return undefined
   }
   
-  useEffect(() => {
-    console.log("CURRENT DAY : " + currentDay);
-    console.log("START OF MONTH : " + monthStartDay);
-    console.log("END OF MONTH : " + monthEndDay);
-    console.log("END OF MONTH : " + format(monthStartDay, "dd/MM"));
-  }, []);
 
   return (
     <Box
@@ -99,6 +92,7 @@ const Calendar: FC<Props> = () => {
               fontSize="lg"
               fontWeight="normal"
               bg="teal.200"
+              key={i}
             >
               {day}
             </GridItem>
@@ -109,9 +103,9 @@ const Calendar: FC<Props> = () => {
       {/* showing the individual days */}
       <Box h="90%" w="100%" bg="teal.100" color="white">
         <Grid templateColumns="repeat(7,1fr)" gap="0" h="100%" padding="0.5">
-          {[...Array(getDaysInMonth(currentDay))].map((x, i) => (
+          {[...Array(daysInMonth)].map((x, i) => (
             <GridItem
-              bg={i + 1 === currentDay.getDate() ? "telegram.50" : "white"}
+              bg={i + 1 === currentDay.getTime() ? "telegram.100" : "white"}
               borderRadius="md"
               border="1px"
               borderColor="teal.400"
@@ -121,8 +115,8 @@ const Calendar: FC<Props> = () => {
               _hover={{ bg: "gray.50" }}
               onClick={() => alert("Pressed")}
             >
-              {format(addDays(monthStartDay, i), "dd/MM")}
-              {console.log(start + i)}
+              {format(addDays(monthStart, i), "dd/MM")}
+              {console.log(currentDay.getDay() + i)}
             </GridItem>
           ))}
         </Grid>
