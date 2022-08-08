@@ -16,17 +16,6 @@ type Props = {
   param?: string;
 };
 
-const Testdata = [
-  { date: new Date(2022, 1, 14) },
-  { date: new Date(2022, 1, 15) },
-  { date: new Date(2022, 1, 16) },
-  { date: new Date(2022, 1, 17) },
-  { date: new Date(2022, 1, 18) },
-  { date: new Date(2022, 1, 19) },
-  { date: new Date(2022, 1, 20) },
-  { date: new Date(2022, 1, 21) },
-  { date: new Date(2022, 1, 22) },
-];
 
 interface dates {
   monthStart: Date;
@@ -34,31 +23,6 @@ interface dates {
   currentDay: Date;
 }
 
-const renderDates = ({ currentDay, monthStart }: dates) => {
-  let days: any = [];
-  //convert to number
-  const start: number = getDay(monthStart);
-
-  console.log("dage i måned: " + getDaysInMonth(currentDay));
-
-  //rendering grid cells
-  for (let index = 0; index < getDaysInMonth(currentDay); index++) {
-    days.push(
-      <Box
-        bg="white"
-        border="1px"
-        borderColor="black"
-        textColor="black"
-        key={index + 1}
-      >
-        {format(start + index, "dd/mm")}
-        {console.log(start + index)}
-      </Box>
-    );
-  }
-
-  return <>{days}</>;
-};
 
 const Calendar: FC<Props> = () => {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
