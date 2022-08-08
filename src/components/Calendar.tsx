@@ -1,4 +1,5 @@
-import { Box, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Box, Grid, GridItem, IconButton } from "@chakra-ui/react";
+import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { FC, ReactElement, useEffect, useState } from "react";
 import {
   format,
@@ -16,18 +17,18 @@ type Props = {
   param?: string;
 };
 
-
 interface dates {
   monthStart: Date;
   monthEnd: Date;
   currentDay: Date;
 }
 
-
 const Calendar: FC<Props> = () => {
   const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
-  const [monthStartDay, setMonthStartDay] = useState<Date>(startOfMonth(currentDay));
+  const [monthStartDay, setMonthStartDay] = useState<Date>(
+    startOfMonth(currentDay)
+  );
   const [monthEndDay, setMonthEndDay] = useState<Date>(endOfMonth(currentDay));
   const [monthToRender, setMonthToRender] = useState<dates>({
     currentDay: currentDay,
@@ -36,6 +37,12 @@ const Calendar: FC<Props> = () => {
   });
   const start: number = getDay(monthStartDay);
 
+  
+  
+  function changeMonth() {
+    return undefined
+  }
+  
   useEffect(() => {
     console.log("CURRENT DAY : " + currentDay);
     console.log("START OF MONTH : " + monthStartDay);
@@ -60,10 +67,26 @@ const Calendar: FC<Props> = () => {
         textAlign="center"
         fontSize="2xl"
         w="100%"
-        bg="teal.400"
+  
+        bg="teal.500"
         color="white"
+        display="flex"
+        justifyContent="center"
       >
-        Calendar
+        <IconButton
+          aria-label={"Next Month"}
+          colorScheme="teal"
+          icon={<ArrowBackIcon />}
+        />
+
+        <Box>Calendar</Box>
+
+        <IconButton
+          aria-label={"Next Month"}
+          colorScheme="teal"
+          icon={<ArrowForwardIcon />}
+          onClick={changeMonth()}
+        />
       </Box>
 
       {/* Showing what day it is */}
@@ -85,16 +108,15 @@ const Calendar: FC<Props> = () => {
 
       {/* showing the individual days */}
       <Box h="90%" w="100%" bg="teal.100" color="white">
-        <Grid templateColumns="repeat(7,1fr)" gap="0.5" h="100%" padding="0.5">
+        <Grid templateColumns="repeat(7,1fr)" gap="0" h="100%" padding="0.5">
           {[...Array(getDaysInMonth(currentDay))].map((x, i) => (
             <GridItem
-              bg={(i+1 === currentDay.getDate()) ? 'telegram.50' : 'white'}
+              bg={i + 1 === currentDay.getDate() ? "telegram.50" : "white"}
               borderRadius="md"
               border="1px"
               borderColor="teal.400"
               textColor="black"
               textAlign="center"
-              
               key={i + 1}
               _hover={{ bg: "gray.50" }}
               onClick={() => alert("Pressed")}
