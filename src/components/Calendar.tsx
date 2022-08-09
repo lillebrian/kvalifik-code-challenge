@@ -1,20 +1,6 @@
-import { Box, Grid, GridItem, IconButton } from "@chakra-ui/react";
-import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import { FC, ReactElement, useEffect, useState } from "react";
-import {
-  format,
-  addDays,
-  endOfMonth,
-  parse,
-  startOfMonth,
-  getDaysInMonth,
-  getDay,
-  addMonths,
-  getMonth,
-  isSameMonth,
-} from "date-fns";
-
-import { datesData } from "../types/types.d";
+import { Box} from "@chakra-ui/react";
+import { FC, useState } from "react";
+import {} from "date-fns";
 import getMonthDates from "./CalendarComponents/DateGenerator";
 import CalendarHeader from "./CalendarComponents/CalendarHeader";
 import MonthRender from "./CalendarComponents/MonthRenderComponent";
@@ -30,9 +16,7 @@ const Calendar: FC<Props> = () => {
   );
 
   console.table(displayedDates);
-  console.log("NUVÆRENDE DAG: ", currentDay)
-
-  // const {monthToRender} = getMonthDates(currentDay.getMonth());
+  console.log("NUVÆRENDE DAG: ", currentDay);
 
   return (
     <Box
@@ -49,36 +33,8 @@ const Calendar: FC<Props> = () => {
       {/* Headline */}
       <CalendarHeader />
 
-      {/* Showing what day it is */}
-
       {/* showing the individual days */}
-
       <MonthRender monthData={displayedDates} />
-      
-      {/* <Grid templateColumns="repeat(7,1fr)" gap="0" h="100%" padding="0.5">
-          {displayedDates.map((day, i) => {
-            return (
-              <GridItem
-                bg={
-                  day.getDate() === currentDay.getDate()
-                    ? "telegram.50"
-                    : "white"
-                }
-                borderRadius="md"
-                border="1px"
-                borderColor="teal.400"
-                textColor="black"
-                textAlign="center"
-                key={i + 1}
-                _hover={{ bg: "gray.50" }}
-                onClick={() => alert("Pressed")}
-              >
-                {day.getDate().toString()}
-                {console.log(day.getDate())}
-              </GridItem>
-            );
-          })}
-        </Grid>*/}
     </Box>
   );
 };

@@ -5,7 +5,7 @@ interface days {
   day: Date;
 }
 
-
+/* Renders the individual dates in the month shown */
 const DayRender = ({ day }: days) => {
    console.log("DAGEN: " ,day)
   return (
