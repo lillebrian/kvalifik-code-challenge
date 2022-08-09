@@ -14,7 +14,7 @@ import {
   isSameMonth,
 } from "date-fns";
 
-import { Month } from "../types/types.d";
+import { datesData } from "../types/types.d";
 import getMonthDates from "./CalendarComponents/DateGenerator";
 import CalendarHeader from "./CalendarComponents/CalendarHeader";
 import MonthRender from "./CalendarComponents/MonthRenderComponent";
@@ -23,19 +23,14 @@ type Props = {
   param?: string;
 };
 
-interface datesData {
-  monthStart: Date;
-  monthEnd: Date;
-  // currentDay: Date;
-  daysInMonth: number;
-}
-
 const Calendar: FC<Props> = () => {
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
-  const [displayedMonth, setDisplayedMonth] = useState<Month>(
+  const [displayedDates, setdisplayedDates] = useState<Date[]>(
     getMonthDates(currentDay.getMonth())
   );
-  console.table(displayedMonth)
+
+  console.table(displayedDates);
+  console.log("NUVÆRENDE DAG: ", currentDay)
 
   // const {monthToRender} = getMonthDates(currentDay.getMonth());
 
@@ -53,20 +48,19 @@ const Calendar: FC<Props> = () => {
     >
       {/* Headline */}
       <CalendarHeader />
-      <MonthRender month={displayedMonth} />
 
       {/* Showing what day it is */}
 
       {/* showing the individual days */}
-      <Box h="90%" w="100%" bg="teal.100" color="white">
-        <Grid templateColumns="repeat(7,1fr)" gap="0" h="100%" padding="0.5">
-          {dates.map((day, i) => {
+
+      <MonthRender monthData={displayedDates} />
+      
+      {/* <Grid templateColumns="repeat(7,1fr)" gap="0" h="100%" padding="0.5">
+          {displayedDates.map((day, i) => {
             return (
               <GridItem
                 bg={
-                  isSameMonth(day.getDate(), displayedMonth)
-                    ? "white"
-                    : "gray.300" || day.getDate() === currentDay.getDate()
+                  day.getDate() === currentDay.getDate()
                     ? "telegram.50"
                     : "white"
                 }
@@ -84,8 +78,7 @@ const Calendar: FC<Props> = () => {
               </GridItem>
             );
           })}
-        </Grid>
-      </Box>
+        </Grid>*/}
     </Box>
   );
 };

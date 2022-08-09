@@ -1,3 +1,3 @@
-export type Month = {
-   monthToRender: Date[]
-}
+export interface datesData {
+   monthData: Date[];
+ }
