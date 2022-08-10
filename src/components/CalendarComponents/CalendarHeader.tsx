@@ -1,11 +1,19 @@
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, IconButton } from "@chakra-ui/react";
 
-import React from "react";
+import React, { useContext, useState } from "react";
+import MonthContext from "../../context/MonthContext";
 
 type Props = {};
 
 const CalendarHeader = (props: Props) => {
+  const { monthIndex, setMonthIndex } = useContext(MonthContext);
+
+  function changeMonth(direction: string) {
+    const d: number = direction === "forward" ? 1 : -1;
+    setMonthIndex(monthIndex + d);
+  }
+
   return (
     <>
       <Box
@@ -21,16 +29,18 @@ const CalendarHeader = (props: Props) => {
           aria-label={"Next Month"}
           colorScheme="teal"
           icon={<ArrowBackIcon />}
-          onClick={(e) => {}}
+          onClick={() => changeMonth("forward")}
         />
 
-        <Box>FIX </Box>
+        <Box> </Box>
 
         <IconButton
           aria-label={"Next Month"}
           colorScheme="teal"
           icon={<ArrowForwardIcon />}
-          onClick={(e) => {}}
+          onClick={() => {
+            changeMonth("backwards");
+          }}
         />
       </Box>
     </>
