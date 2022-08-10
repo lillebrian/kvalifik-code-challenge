@@ -13,18 +13,20 @@ const DayRender = ({ day }: days) => {
   //  console.log("DAGEN: " ,day)
 
   const { monthIndex } = useContext<IMonthContext>(MonthContext);
-  
-  const validDayInMonth: boolean = day.getMonth() === new Date(new Date().getFullYear(), monthIndex).getMonth()
+
+  const validDayInMonth: boolean =
+    day.getMonth() ===
+    new Date(new Date().getFullYear(), monthIndex).getMonth();
   const isCurrentDay: boolean =
-    (day.getDate() === new Date().getDate()) &&
-    (day.getMonth() === new Date().getMonth());
+    day.getDate() === new Date().getDate() &&
+    day.getMonth() === new Date().getMonth();
   const color: string = validDayInMonth
     ? isCurrentDay
-      ? "telegram.50"
+      ? "telegram.100"
       : "white"
     : "gray.400";
 
-  return (
+  return validDayInMonth ? (
     <GridItem
       bg={color}
       borderRadius="sm"
@@ -34,6 +36,19 @@ const DayRender = ({ day }: days) => {
       textAlign="center"
       _hover={{ bg: "gray.50" }}
       onClick={() => alert("Pressed")}
+      key={day.getTime()}
+    >
+      {day.getDate()}
+    </GridItem>
+  ) : (
+    <GridItem
+      bg={"gray.300"}
+      borderRadius="sm"
+      border="1px"
+      borderColor="teal.400"
+      textColor="black"
+      textAlign="center"
+      opacity="50%"
       key={day.getTime()}
     >
       {day.getDate()}

@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem } from "@chakra-ui/react";
 import { FC, useContext, useEffect, useState } from "react";
 import { getMonth, getYear } from "date-fns";
 import MonthContext from "../context/MonthContext";
@@ -11,6 +11,7 @@ type Props = {
   param?: string;
 };
 
+const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 const Calendar: FC<Props> = () => {
   const [currentDay, setCurrentDay] = useState<Date>(new Date());
   const [displayedDates, setdisplayedDates] = useState<IdisplayedDates>(
@@ -28,12 +29,11 @@ const Calendar: FC<Props> = () => {
   the displayed month. Then that months data gets passed down to components to 
   render. boom shakala */
   useEffect(() => {
-    
     setdisplayedDates(getMonthDates(monthIndex));
   }, [monthIndex]);
 
   console.table(displayedDates.dates);
-  console.log(displayedDates.year)
+  console.log(displayedDates.year);
   // console.log("NUVÆRENDE DAG: ", currentDay);
 
   return (
@@ -53,6 +53,21 @@ const Calendar: FC<Props> = () => {
         year={displayedDates.year as number}
         month={getMonth(monthIndex)}
       />
+      <Grid 
+          templateColumns="repeat(7,1fr)"
+          bg="teal.500"
+          w="100%"
+          fontSize="md"
+          h="5%"
+                  
+
+        >
+          {[...Array(7)].map((e: any, i) => (
+            <GridItem textAlign="center" textColor="white" h="100%" w="100%" key={i}>
+              {weekdays[i]}
+            </GridItem>
+          ))}
+      </Grid>
 
       {/* showing the individual days */}
       <MonthRender dates={displayedDates.dates} />
