@@ -13,8 +13,11 @@ const DayRender = ({ day }: days) => {
   //  console.log("DAGEN: " ,day)
 
   const { monthIndex } = useContext<IMonthContext>(MonthContext);
-  const validDayInMonth: boolean = day.getMonth() === monthIndex;
-  const isCurrentDay: boolean = day.getDate() === new Date().getDate();
+  
+  const validDayInMonth: boolean = day.getMonth() === new Date(new Date().getFullYear(), monthIndex).getMonth()
+  const isCurrentDay: boolean =
+    (day.getDate() === new Date().getDate()) &&
+    (day.getMonth() === new Date().getMonth());
   const color: string = validDayInMonth
     ? isCurrentDay
       ? "telegram.50"
