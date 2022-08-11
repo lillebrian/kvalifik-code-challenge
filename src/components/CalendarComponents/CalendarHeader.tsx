@@ -1,8 +1,8 @@
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import { Box, IconButton } from "@chakra-ui/react";
-import { getDate, getMonth, getYear, setMonth, format } from "date-fns";
+import { Box, Center, IconButton, Text } from "@chakra-ui/react";
+import { format } from "date-fns";
 
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MonthContext from "../../context/MonthContext";
 
 interface data {
@@ -30,9 +30,10 @@ const CalendarHeader = ({ year, month }: data) => {
   const [displayedHeader, setDisplayedHeader] = useState(
     monthNames[monthIndex]
   );
-  const currentDateYear: number = new Date().getFullYear()
-  
-  
+  const currentDateYear: number = new Date().getFullYear();
+  const formatYear = format(new Date(currentDateYear, monthIndex), "yyyy");
+  const formatMonth = format(new Date(currentDateYear, monthIndex), "MMMM");
+
   function changeMonth(direction: string) {
     const d: number = direction === "forward" ? 1 : -1;
     setMonthIndex(monthIndex + d);
@@ -43,36 +44,45 @@ const CalendarHeader = ({ year, month }: data) => {
   }, [monthIndex]);
 
   return (
-    
     <Box
       textAlign="center"
       fontSize="2xl"
       w="100%"
-      bg="teal.500"
-      color="white"
+      bg="white"
+      color="gray.700"
       display="flex"
-      justifyContent="center"
+      justifyContent="space-between"
+      padding="2"
     >
-      <IconButton
-        aria-label={"Next Month"}
-        colorScheme="teal"
-        icon={<ArrowBackIcon />}
-        onClick={() => changeMonth("back")}
-      />
-
-      <Box>
+      <Box display="flex" gap="1" padding="1">
         {/* Weird trick - keeps counting up the years as well (8 + 5 = 13 (which is august to january)) */}
-        {format(new Date(currentDateYear, monthIndex), "MMMM yyyy")}
+        <Text fontWeight="bold">{formatMonth}</Text>
+        <Text>{formatYear}</Text>
       </Box>
 
-      <IconButton
-        aria-label={"Next Month"}
-        colorScheme="teal"
-        icon={<ArrowForwardIcon />}
-        onClick={() => {
-          changeMonth("forward");
-        }}
-      />
+      <Center display="flex" gap="2.5">
+        <IconButton
+          isRound={true}
+          size="sm"
+          aria-label={"Next Month"}
+          colorScheme="purple"
+          icon={<ArrowBackIcon />}
+          onClick={() => changeMonth("back")}
+        />
+        <Box fontSize="md" color="purple" fontWeight="bold">
+          Today
+        </Box>
+        <IconButton
+          isRound={true}
+          size="sm"
+          aria-label={"Next Month"}
+          colorScheme="purple"
+          icon={<ArrowForwardIcon />}
+          onClick={() => {
+            changeMonth("forward");
+          }}
+        />
+      </Center>
     </Box>
   );
 };

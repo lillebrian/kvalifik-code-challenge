@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { IMonthContext } from "../types/types.d";
 import MonthContext from "./MonthContext";
 
 export default function MonthContextWrapper({ children }: any) {

@@ -1,8 +1,8 @@
 import { GridItem } from "@chakra-ui/react";
-import { format } from "date-fns";
 import React, { useContext } from "react";
+import EventContext from "../../context/EventContext";
 import MonthContext from "../../context/MonthContext";
-import { IMonthContext } from "../../types/types.d";
+import { IEventContext, IMonthContext } from "../../types/types.d";
 
 interface days {
   day: Date;
@@ -13,6 +13,7 @@ const DayRender = ({ day }: days) => {
   //  console.log("DAGEN: " ,day)
 
   const { monthIndex } = useContext<IMonthContext>(MonthContext);
+  const { setDisplayEvent } = useContext<IEventContext>(EventContext);
 
   const validDayInMonth: boolean =
     day.getMonth() ===
@@ -31,11 +32,11 @@ const DayRender = ({ day }: days) => {
       bg={color}
       borderRadius="sm"
       border="1px"
-      borderColor="teal.400"
+      borderColor="gray.50"
       textColor="black"
       textAlign="center"
       _hover={{ bg: "gray.50" }}
-      onClick={() => alert("Pressed")}
+      onClick={() => setDisplayEvent(true)}
       key={day.getTime()}
     >
       {day.getDate()}

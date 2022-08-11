@@ -14,7 +14,6 @@ As a user, i want to...
 * Delete events
 
 ## Requirements:
-
 * Should be written in TypeScript
 * Use useState for state mangement
 * The UI should be as similar to the one in the Xd app as possible
