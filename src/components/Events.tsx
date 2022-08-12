@@ -55,7 +55,7 @@ const Events: FC<Props> = () => {
           
         >
           <Input bg="white" placeholder="Event name" name="eventName" />
-          <Button bg="purple" color="white" onClick={(e) => handleSubmit(e)}>
+          <Button type="submit" bg="purple" color="white" onClick={(e) => handleSubmit(e)}>
             {" "}
             +{" "}
           </Button>
