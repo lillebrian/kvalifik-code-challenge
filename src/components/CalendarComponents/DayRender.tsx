@@ -1,4 +1,4 @@
-import { GridItem } from "@chakra-ui/react";
+import { Box, GridItem } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import EventContext from "../../context/EventContext";
 import MonthContext from "../../context/MonthContext";
@@ -6,14 +6,29 @@ import { IEventContext, IMonthContext } from "../../types/types.d";
 
 interface days {
   day: Date;
+  counter: number;
+}
+
+function genericStyle(color: string, counter: number) {
+  return {
+    bg: color,
+    borderRight: (counter%7 != 0) ? "1px" : "0",
+    borderBottomLeftRadius: (counter === 29) ? "13px" : "0",
+    borderBottomRightRadius: (counter === 35) ? "13px" : "0",
+    borderTop: "1px",
+    borderColor: "gray.100",
+    textColor: "gray.600",
+    w: "100%",
+    h: ""
+  };
 }
 
 /* Renders the individual dates in the month shown */
-const DayRender = ({ day }: days) => {
+const DayRender = ({ day, counter}: days) => {
   //  console.log("DAGEN: " ,day)
 
   const { monthIndex } = useContext<IMonthContext>(MonthContext);
-  const { setDisplayEvent } = useContext<IEventContext>(EventContext);
+  const { setDisplayEvent, setSelectedDate } = useContext<IEventContext>(EventContext);
 
   const validDayInMonth: boolean =
     day.getMonth() ===
@@ -29,30 +44,27 @@ const DayRender = ({ day }: days) => {
 
   return validDayInMonth ? (
     <GridItem
-      bg={color}
-      borderRadius="sm"
-      border="1px"
-      borderColor="gray.50"
-      textColor="black"
-      textAlign="center"
-      _hover={{ bg: "gray.50" }}
-      onClick={() => setDisplayEvent(true)}
+      __css={genericStyle(color, counter)}
+      pos="relative"
+      _hover={{ bg: "gray.100" }}
+      onClick={() => setSelectedDate(day)}
+      // onClick={() => setDisplayEvent(true)}
       key={day.getTime()}
     >
-      {day.getDate()}
+      <Box paddingRight="1" pos="absolute" right="0" bottom="0">
+        {day.getDate()}.
+      </Box>
     </GridItem>
   ) : (
     <GridItem
-      bg={"gray.300"}
-      borderRadius="sm"
-      border="1px"
-      borderColor="teal.400"
-      textColor="black"
-      textAlign="center"
+      __css={genericStyle(color, counter)}
+      pos="relative"
       opacity="50%"
       key={day.getTime()}
     >
-      {day.getDate()}
+      <Box paddingRight="1" pos="absolute" right="0" bottom="0">
+        {day.getDate()}.
+      </Box>
     </GridItem>
   );
 };

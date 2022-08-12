@@ -6,7 +6,7 @@ import MonthContext from "../context/MonthContext";
 import {
   IdisplayedDates,
   IEventContext,
-  IMonthContext
+  IMonthContext,
 } from "../types/types.d";
 import CalendarHeader from "./CalendarComponents/CalendarHeader";
 import getMonthDates from "./CalendarComponents/DateGenerator";
@@ -23,20 +23,23 @@ const WeekDays = () => {
   return (
     <Grid
       templateColumns="repeat(7,1fr)"
-      bg="teal.500"
+      bg="white"
       w="100%"
       fontSize="md"
-      h="5%"
+      h="10%"
     >
       {[...Array(7)].map((e: any, i) => (
         <GridItem
+          position="relative"
           textAlign="center"
-          textColor="white"
+          textColor="gray.700"
           h="100%"
           w="100%"
           key={i}
         >
-          {weekdays[i]}
+          <Box pos="absolute" w="100%" bottom="0" textAlign="center">
+            {weekdays[i]}
+          </Box>
         </GridItem>
       ))}
     </Grid>
@@ -54,19 +57,20 @@ const Calendar: FC<Props> = () => {
   // });
 
   const { monthIndex } = useContext<IMonthContext>(MonthContext);
-  const { displayEvent } = useContext<IEventContext>(EventContext);
+  const { displayCreateEvent: displayEvent } =
+    useContext<IEventContext>(EventContext);
   /*
   Here the magic happens. Whenever the monthindex is changed (global contex)
   the month corresponding to the new monthindex number is generated and set to
   the displayed month. Then that months data gets passed down to components to 
   render. boom shakala */
+
   useEffect(() => {
     setdisplayedDates(getMonthDates(monthIndex));
+    console.log("MONTHINDEX CHANGED: " + monthIndex);
   }, [monthIndex]);
-
-  console.table(displayedDates.dates);
-  console.log(displayedDates.year);
-  // console.log("NUVÆRENDE DAG: ", currentDay);
+  
+  console.log("CALENDAR RENDER")
 
   return (
     <Box>
@@ -79,7 +83,7 @@ const Calendar: FC<Props> = () => {
         boxShadow="0 0 99px 0px rgba(0, 0, 0, 0.04)"
         mb="10"
         display=""
-        // justifyContent='center'
+        justifyContent="center"
         alignItems="center"
       >
         {/* Headline */}

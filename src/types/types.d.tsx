@@ -8,8 +8,10 @@ export interface IMonthContext {
 }
 
 export interface IEventContext {
-  displayEvent: boolean
+  displayCreateEvent: boolean
   setDisplayEvent: (props: boolean) => void
+  selectedDate: Date
+  setSelectedDate: (props: Date) => void
 }
 
 export interface IdisplayedDates {

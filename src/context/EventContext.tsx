@@ -9,8 +9,11 @@ MONTHINDEX = WHAT MONTH IS BEING RENDERED
 SETMONTHINDEX = PROVIDES THE ABILITY TO SET THE MONTHINDEX
  */
 const EventContext = createContext<IEventContext>({
-   displayEvent: false,
-   setDisplayEvent: () => {}
+   displayCreateEvent: false,
+   setDisplayEvent: () => {},
+   selectedDate: new Date(),
+   setSelectedDate: () => {}
+   
 });
 
 export default EventContext;

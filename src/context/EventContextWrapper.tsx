@@ -9,8 +9,9 @@ export default function EventContextWrapper({ children }: any) {
    DEFAULT VALUE: CURRENT MONTH
    */
   const [displayEvent, setDisplayEvent] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   return (
-    <EventContext.Provider value={{ displayEvent, setDisplayEvent }}>
+    <EventContext.Provider value={{ displayCreateEvent: displayEvent, setDisplayEvent, selectedDate: selectedDate, setSelectedDate}}>
       {children}
     </EventContext.Provider>
   );

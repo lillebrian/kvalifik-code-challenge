@@ -18,7 +18,7 @@ const EventFormComponent = (props: Props) => {
   const [eventName, setEventName] = useState<string>("");
   const [eventDescription, setEventDescription] = useState<string>("");
 
-  const { displayEvent, setDisplayEvent } =
+  const { displayCreateEvent: displayEvent, setDisplayEvent } =
     useContext<IEventContext>(EventContext);
 
   function handleEventSubmit(e: any) {
@@ -37,7 +37,7 @@ const EventFormComponent = (props: Props) => {
       alignItems="center"
     >
       <FormControl bg="white" borderRadius="md" shadow="2xl" w="" padding="2">
-        <Flex bg="white" h="30px">
+        <Flex bg="white">
           <IconButton
             w="50%"
             h="100%"
