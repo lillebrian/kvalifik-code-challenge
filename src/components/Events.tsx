@@ -23,21 +23,21 @@ const Events: FC<Props> = () => {
       eventDate: new Date(),
     },
   ]);
-  const {selectedDate} = useContext<IEventContext>(EventContext)
-  
+  const { selectedDate } = useContext<IEventContext>(EventContext);
+
   function handleSubmit(e: any) {
-    setEvents(prev => {
-      return [...prev, {eventName: e.eventName, eventDate: selectedDate}];
-    })
+    setEvents((prev) => {
+      return [...prev, { eventName: e.eventName, eventDate: selectedDate }];
+    });
   }
   function handleDelete(e: EventData) {
+    console.log("inside delete")
     setEvents((prev) =>
       prev.filter((eventToRemove) => {
         return eventToRemove.eventName !== e.eventName;
       })
     );
   }
-  
 
   return (
     <Box
@@ -48,30 +48,39 @@ const Events: FC<Props> = () => {
       alignItems="center"
     >
       <Box w="100%">
-        <FormControl h="100%" display="flex" gap="2" onSubmit={(e) => handleSubmit(e)}>
+        <FormControl
+          h="100%"
+          display="flex"
+          gap="2"
+          
+        >
           <Input bg="white" placeholder="Event name" name="eventName" />
-          <Button type="submit" bg="purple" color="white">
+          <Button bg="purple" color="white" onClick={(e) => handleSubmit(e)}>
             {" "}
             +{" "}
           </Button>
         </FormControl>
       </Box>
 
-      {events.map(e => {
-        <Box
-        display="flex"
-        w="100%"
-        h="50px"
-        bg="white"
-        borderRadius="13px"
-        marginTop="3"
-      >
-        {console.log("inside event render")}
-        {e.eventName}
-        <Button onSubmit={() => handleDelete(e)}> X </Button>
-      </Box>
+      {events.map((e) => {
+        return (
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            w="500px"
+            h="50px"
+            bg="white"
+            borderRadius="13px"
+            marginTop="3"
+          >
+            {console.log("inside event render")}
+            {e.eventName}
+            {console.log(e.eventName)}
+            <Button onClick={() => handleDelete(e)}> X </Button>
+          </Box>
+        );
       })}
-      
     </Box>
   );
 };
